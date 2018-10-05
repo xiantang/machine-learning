@@ -4,7 +4,6 @@ function [J, grad] = costFunction(theta, X, y)
 %   parameter for logistic regression and the gradient of the cost
 %   w.r.t. to the parameters.
 
-% Initialize some useful values
 m = length(y); % number of training examples
 
 % You need to return the following variables correctly 
@@ -19,14 +18,20 @@ grad = zeros(size(theta));
 %
 % Note: grad should have the same dimensions as theta
 %
-list_one = ones(m,1);
-J=(-(y')*log(X*theta)-((list_one-y)')*log(list_one-X*theta))/m
+size(X*theta);
+A = sigmoid(X*theta);
 
+% log(A)
 
+%之前写的比较傻，直接用向量化会简洁 
+%pos = find(y==1) 
+%neg = find(y==0)
+%part1 = sum(-y(pos).*(log(A)(pos)));
+%part2 = sum(-(1-y(neg)).*log(1-A(neg)));
+%J = (part1 + part2)/m;
+J = sum(-y.*log(A) - (1-y).*(log(1-A)))/m;
 
-
-
-
+grad = ((A-y)'*X)'/m;
 
 % =============================================================
 
