@@ -36,12 +36,14 @@ grad = zeros(size(theta));
 %           grad = grad + YOUR_CODE_HERE (using the temp variable)
 %
 
+A = sigmoid(X*theta) # use sigmoid to gian res
 
-
-
-
-
-
+J = (-(y)'*log(A)-(1-y)'*log(1-A))/m;
+J = J + sum(theta(2:end).^2)*lambda/(2*m);
+grad = (X'*(A-y))/m
+temp = theta;
+temp(1) = 0;
+grad = grad+temp*(lambda/m);
 
 
 
